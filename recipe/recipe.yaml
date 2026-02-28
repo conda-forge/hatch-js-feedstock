@@ -1,6 +1,6 @@
 context:
   name: hatch-js
-  version: "0.1.0"
+  version: "0.1.1"
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/hatch_js/hatch_js-${{ version }}.tar.gz
-  sha256: c5651fec665b40be79dc453ad68ca7f28eb6fa06245761f50019264133d284c6
+  sha256: 8b2d37944be13bb600ffec8346da272e0b450355e703fef01e3b44c656fbbf95
 
 build:
   number: 0
@@ -28,8 +28,8 @@ requirements:
 tests:
   - python:
       imports:
-      - hatch_js.hooks
-      - hatch_js.plugin
+        - hatch_js.hooks
+        - hatch_js.plugin
       pip_check: true
       python_version: ${{ python_min }}.*
 
