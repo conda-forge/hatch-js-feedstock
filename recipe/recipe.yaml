@@ -1,6 +1,6 @@
 context:
   name: hatch-js
-  version: "0.1.1"
+  version: "0.1.2"
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/hatch_js/hatch_js-${{ version }}.tar.gz
-  sha256: 8b2d37944be13bb600ffec8346da272e0b450355e703fef01e3b44c656fbbf95
+  sha256: 8b78f2f5340f55d88b3db70efdb77c4556e23a24256ee85774e710c434d50ba0
 
 build:
   number: 0
