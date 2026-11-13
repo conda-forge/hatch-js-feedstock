@@ -9,9 +9,12 @@ package:
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/hatch_js/hatch_js-${{ version }}.tar.gz
   sha256: e2ca7b1b32238c68cbd8665a960f046c4ac8b424358c270b96c99c5fe861c34e
+  patches:
+    # Resolve pnpm.cmd on Windows when collecting dependency licenses.
+    - resolve-pnpm-executable.patch
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: python -m pip install . -vv
 

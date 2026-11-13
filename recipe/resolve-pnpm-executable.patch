@@ -1,0 +1,37 @@
+--- a/hatch_js/licenses.py
++++ b/hatch_js/licenses.py
+@@ -4,6 +4,7 @@
+ import re
+ import subprocess
+ from pathlib import Path, PurePosixPath
++from shutil import which
+ 
+ from pydantic import BaseModel, ConfigDict, Field, TypeAdapter, field_validator, model_validator
+ 
+@@ -126,7 +127,7 @@
+             if key in previous:
+                 raise ValueError("Duplicate dependency in reviewed license bundle.")
+             previous[key] = library
+-    command = ["pnpm", "licenses", "list", "--json"]
++    command = [which("pnpm") or "pnpm", "licenses", "list", "--json"]
+     if config.production_only:
+         command.append("--prod")
+     result = subprocess.run(command, cwd=directory, check=True, capture_output=True, text=True)
+--- a/hatch_js/tests/test_licenses.py
++++ b/hatch_js/tests/test_licenses.py
+@@ -1,6 +1,7 @@
+ import json
+ import subprocess
+ from pathlib import Path
++from shutil import which
+ 
+ import pytest
+ from hatchling.builders.wheel import WheelBuilder
+@@ -24,7 +25,7 @@
+     output = {"MIT": [{"name": "dependency", "versions": ["1.0.0"], "paths": [str(dependency)], "license": "MIT"}]}
+ 
+     def collect(command, **kwargs):
+-        assert command[:4] == ["pnpm", "licenses", "list", "--json"]
++        assert command[:4] == [which("pnpm") or "pnpm", "licenses", "list", "--json"]
+         assert Path(kwargs["cwd"]).resolve() == (tmp_path / "js").resolve()
+         return subprocess.CompletedProcess(command, 0, json.dumps(output), "")
